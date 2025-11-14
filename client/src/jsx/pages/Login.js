@@ -77,108 +77,101 @@ function Login() {
   return (
     <div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
 
-      {/* LEFT SECTION */}
-      <div className="login-aside text-center d-flex flex-column flex-row-auto">
-        <div className="d-flex flex-column-auto flex-column pt-5">
-          <h3 className="mb-2">
-            {role === "admin" ? "Admin Login" : "Welcome Back!"}
-          </h3>
-          <p>
-            {role === "admin"
-              ? "Access the admin control panel securely."
-              : "Sign in to manage your account effortlessly."}
-          </p>
-        </div>
+{/* LEFT SECTION - Centered and Styled */}
+<div className="login-aside text-center d-flex flex-column flex-row-auto justify-content-center align-items-center p-5">
+  <div className="d-flex flex-column align-items-center">
+    {/* Optional: Add a Logo/Icon here for visual interest */}
+    <span className="display-4 mb-4 text-white">
+      {role === "admin" ? "⚙️" : "👋"}
+    </span> 
+    
+    <h3 className="mb-3 text-white fw-bold display-6">
+      {role === "admin" ? "Admin Control Panel" : "Welcome Back!"}
+    </h3>
+    <p className="text-white-50 fs-5 px-3">
+      {role === "admin"
+        ? "Access the system configuration and management tools securely."
+        : "Sign in to manage your account and pick up where you left off."}
+    </p>
+  </div>
+</div>
 
-        <div
-          className="aside-image"
-          style={{
-            background: "#ececec",
-            borderRadius: "10px",
-            height: "100%",
-          }}
-        ></div>
+{/* RIGHT SECTION - REFINED */}
+<div className="container d-flex flex-column justify-content-center align-items-center min-vh-100 p-3 p-md-5">
+  <div className="card shadow-lg border-0 rounded-4 w-100" style={{ maxWidth: '450px' }}>
+    <div className="card-body p-4 p-sm-5">
+      <div className="d-flex justify-content-end mb-4">
+        {/* ROLE SWITCH - Primary action should be visually dominant, use text for the less important switch */}
+        <button
+          onClick={changeRole}
+          className="btn btn-sm btn-link text-decoration-none text-primary"
+        >
+          {role === "user" ? "Switch to Admin Login" : "Switch to User Login"}
+        </button>
       </div>
 
-      {/* RIGHT SECTION */}
-      <div className="container flex-row-fluid d-flex flex-column justify-content-center position-relative overflow-hidden p-7 mx-auto">
-        <div className="d-flex justify-content-center h-100 align-items-center">
-          <div className="authincation-content style-2">
-            <div className="row no-gutters">
-              <div className="col-xl-12 tab-content">
-                <div id="sign-in" className="auth-form form-validation">
+      <form onSubmit={onLogin} className="form-validate">
+        <h3 className="text-center mb-5 fw-bold text-dark">
+          {role === "admin" ? "Admin Login" : "User Login"}
+        </h3>
 
-                  {/* ROLE SWITCH */}
-                  <div className="d-flex justify-content-end mb-3">
-                    <button
-                      onClick={changeRole}
-                      className="btn btn-sm btn-outline-primary"
-                    >
-                      {role === "user" ? "Switch to Admin Login" : "Switch to User Login"}
-                    </button>
-                  </div>
+        {/* EMAIL */}
+        <div className="mb-4">
+          <label className="form-label fw-medium text-secondary" htmlFor="email-input">
+            Email address
+          </label>
+          <input
+            id="email-input"
+            type="email"
+            className="form-control form-control-lg border-0 bg-light rounded-2"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="name@example.com"
+            aria-label="Email address"
+            required
+          />
+        </div>
 
-                  <form onSubmit={onLogin} className="form-validate">
-                    <h3 className="text-center mb-4 text-black">
-                      {role === "admin" ? "Admin Login" : "User Login"}
-                    </h3>
+        {/* PASSWORD */}
+        <div className="mb-4">
+          <label className="form-label fw-medium text-secondary" htmlFor="password-input">
+            Password
+          </label>
+          <input
+            id="password-input"
+            type="password"
+            className="form-control form-control-lg border-0 bg-light rounded-2"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="••••••••"
+            aria-label="Password"
+            required
+          />
+        </div>
 
-                    {/* EMAIL */}
-                    <div className="form-group mb-3">
-                      <label className="mb-1">
-                        <strong>Email</strong>
-                      </label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter your email"
-                      />
-                    </div>
+        {/* LOGIN BUTTON */}
+        <div className="d-grid gap-2 mb-3 mt-5">
+          <button type="submit" className="btn btn-primary btn-lg rounded-2 fw-bold">
+            Sign In
+          </button>
+        </div>
 
-                    {/* PASSWORD */}
-                    <div className="form-group mb-3">
-                      <label className="mb-1">
-                        <strong>Password</strong>
-                      </label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter your password"
-                      />
-                    </div>
-
-                    {/* LOGIN BUTTON */}
-                    <div className="text-center form-group mb-3">
-                      <button type="submit" className="btn btn-primary btn-block">
-                        Sign In
-                      </button>
-                    </div>
-
-                    {/* REGISTER BUTTON (USER ONLY) */}
-                    {role === "user" && (
-                      <div className="text-center mt-3">
-                        <button
-                          type="button"
-                          onClick={() => navigate("/register")}
-                          className="btn btn-outline-primary"
-                        >
-                          Create an Account
-                        </button>
-                      </div>
-                    )}
-
-                  </form>
-
-                </div>
-              </div>
-            </div>
+        {/* REGISTER BUTTON (USER ONLY) */}
+        {role === "user" && (
+          <div className="text-center mt-3">
+            <button
+              type="button"
+              onClick={() => navigate("/register")}
+              className="btn btn-outline-secondary btn-lg rounded-2 w-100"
+            >
+              Create an Account
+            </button>
           </div>
-        </div>
-      </div>
+        )}
+      </form>
+    </div>
+  </div>
+</div>
 
     </div>
   );
