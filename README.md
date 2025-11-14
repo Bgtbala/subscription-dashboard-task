@@ -22,6 +22,9 @@ View current active subscription
 
 View all user subscriptions
 Track plan status (active / expired)
+🔍 Search & Filter
+Admin can search subscriptions by **email** or **name** (single field checks both).
+
 
 🎨 UI & UX
 
@@ -152,7 +155,7 @@ Backend Requirements
 ✔ CRUD for plans
 ✔ Subscribe API
 ✔ Get active subscription
-✔ Admin subscription list
+✔ Admin subscription list (with filter)
 ✔ Joi-style validations
 ✔ Structured error responses
 ✔ Seeder for plans & admin
@@ -163,7 +166,7 @@ Frontend Requirements
 ✔ Register page
 ✔ Plans page
 ✔ User dashboard showing current plan
-✔ Admin subscription dashboard
+✔ Admin subscription dashboard (with filter)
 ✔ Protected routes + role check
 ✔ Global Auth state (Redux)
 ✔ Clean responsive Tailwind UI
@@ -174,6 +177,15 @@ Bonus (Optional) – Partially Implemented
 
 Dark mode support (UI-ready)
 Plan upgrade/downgrade implemented
+
+🌐 Live Deployment
+
+Frontend (Vercel):
+https://subscription-dashboard-task-lovat.vercel.app
+
+Backend (Render):
+https://subscription-dashboard-task-d9v6.onrender.com
+
 
 👨‍💻 Developer
 
