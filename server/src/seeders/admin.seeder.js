@@ -19,7 +19,7 @@ const seedAdmin = async () => {
 
     const adminData = {
       name: "Super Admin",
-      email: "admin@example.com",
+      email: "admin@gmail.com",
       password: "Admin@123", // You can override via env
     };
 
