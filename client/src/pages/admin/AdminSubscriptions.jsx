@@ -64,6 +64,7 @@ const AdminSubscriptions = () => {
       setLoading(true);
       setError(null);
       const data = await getAllSubscriptions(email);
+      console.log("🚀 ~ loadSubscriptions ~ data:", data)
       setSubs(data || []);
     } catch (err) {
       setError("Failed to load subscriptions.");
@@ -139,6 +140,12 @@ const AdminSubscriptions = () => {
               </th>
               <th
                 scope="col"
+                className="text-uppercase small fw-semibold text-muted ps-3"
+              >
+                User Name
+              </th>
+              <th
+                scope="col"
                 className="text-uppercase small fw-semibold text-muted"
               >
                 Plan
@@ -176,6 +183,9 @@ const AdminSubscriptions = () => {
                 {/* User Information */}
                 <td className="fw-medium text-dark-emphasis ps-3">
                   {sub.user?.email || "**Unknown User**"}
+                </td>
+                <td className="fw-medium text-dark-emphasis ps-3">
+                  {sub.user?.name || "**Unknown**"}
                 </td>
 
                 {/* Plan Name */}
@@ -219,7 +229,7 @@ const AdminSubscriptions = () => {
         {/* 🔍 Search Input */}
         <input
           type="text"
-          placeholder="Search by Email..."
+          placeholder="Search by Email or Name..."
           className="form-control form-control-sm w-auto"
           value={searchEmail}
           onChange={(e) => setSearchEmail(e.target.value)}

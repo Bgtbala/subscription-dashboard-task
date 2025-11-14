@@ -40,9 +40,9 @@ export const getMySubscription = async () => {
 // GET ALL SUBSCRIPTIONS (ADMIN)
 // ------------------------------------------
 
-export const getAllSubscriptions = async (email = "") => {
+export const getAllSubscriptions = async (search = "") => {
   const response = await api.get("/admin/subscriptions", {
-    params: email ? { email } : {},
+    params: search ? { search } : {},
   });
   return response.data?.data || [];
 };

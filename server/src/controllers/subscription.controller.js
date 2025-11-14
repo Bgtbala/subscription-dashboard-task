@@ -59,20 +59,30 @@ export const getMySubscription = asyncHandler(async (req, res) => {
 
 // ✅ Get all subscriptions (Admin) with optional email filter
 export const getAllSubscriptions = asyncHandler(async (req, res) => {
-  const { email } = req.query;
+  const { search } = req.query;
 
   const query = {};
 
-  // 🔍 If email filter exists → match user email (case-insensitive)
-  if (email) {
-    query.user = {
-      $in: await User.find(
-        { email: { $regex: email, $options: "i" } },
-        "_id"
-      ),
-    };
+  // ----------------------------------------------------
+  // 🔍 Combined user filter (name OR email)
+  // ----------------------------------------------------
+  if (search) {
+    const matchingUsers = await User.find(
+      {
+        $or: [
+          { email: { $regex: search, $options: "i" } },
+          { name: { $regex: search, $options: "i" } },
+        ],
+      },
+      "_id"
+    );
+
+    query.user = { $in: matchingUsers };
   }
 
+  // ----------------------------------------------------
+  // Fetch subscriptions with populated user + plan
+  // ----------------------------------------------------
   const subscriptions = await Subscription.find(query)
     .populate("user", "name email")
     .populate("plan", "name price duration");
