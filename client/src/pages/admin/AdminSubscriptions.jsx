@@ -57,25 +57,30 @@ const AdminSubscriptions = () => {
   const [subs, setSubs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [searchEmail, setSearchEmail] = useState("");
 
-  const loadSubscriptions = async () => {
+  const loadSubscriptions = async (email = "") => {
     try {
       setLoading(true);
       setError(null);
-      const data = await getAllSubscriptions();
+      const data = await getAllSubscriptions(email);
       setSubs(data || []);
     } catch (err) {
-      console.error("Error fetching subscriptions:", err);
-      setError("Failed to load subscriptions. Please try again.");
+      setError("Failed to load subscriptions.");
       setSubs([]);
     } finally {
       setLoading(false);
     }
   };
 
+  // Load with filter
   useEffect(() => {
-    loadSubscriptions();
-  }, []);
+    const delay = setTimeout(() => {
+      loadSubscriptions(searchEmail);
+    }, 400); // debounce
+
+    return () => clearTimeout(delay);
+  }, [searchEmail]);
 
   const subscriptionCount = useMemo(() => subs.length, [subs]);
 
@@ -210,13 +215,20 @@ const AdminSubscriptions = () => {
             </span>
           )}
         </h3>
+
+        {/* 🔍 Search Input */}
+        <input
+          type="text"
+          placeholder="Search by Email..."
+          className="form-control form-control-sm w-auto"
+          value={searchEmail}
+          onChange={(e) => setSearchEmail(e.target.value)}
+        />
+
         <button
           className="btn btn-outline-primary btn-sm"
-          onClick={loadSubscriptions}
-          disabled={loading}
-          title="Refresh subscription data"
+          onClick={() => loadSubscriptions(searchEmail)}
         >
-          <i className={`bi bi-arrow-clockwise ${loading ? "spin" : ""}`}></i>{" "}
           Refresh
         </button>
       </div>

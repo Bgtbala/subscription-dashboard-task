@@ -3,6 +3,7 @@ import Plan from "../models/plan.model.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import User from "../models/users.model.js";
 
 // ✅ Subscribe user to a plan
 export const subscribeToPlan = asyncHandler(async (req, res) => {
@@ -56,20 +57,31 @@ export const getMySubscription = asyncHandler(async (req, res) => {
     .json(ApiResponse.success(subscription, "Active subscription fetched"));
 });
 
-// ✅ Get all subscriptions (Admin)
+// ✅ Get all subscriptions (Admin) with optional email filter
 export const getAllSubscriptions = asyncHandler(async (req, res) => {
-  const subscriptions = await Subscription.find()
+  const { email } = req.query;
+
+  const query = {};
+
+  // 🔍 If email filter exists → match user email (case-insensitive)
+  if (email) {
+    query.user = {
+      $in: await User.find(
+        { email: { $regex: email, $options: "i" } },
+        "_id"
+      ),
+    };
+  }
+
+  const subscriptions = await Subscription.find(query)
     .populate("user", "name email")
     .populate("plan", "name price duration");
 
-  if (!subscriptions.length) {
-    throw new ApiError(404, "No subscriptions found");
-  }
-
   return res
     .status(200)
-    .json(ApiResponse.success(subscriptions, "All subscriptions fetched"));
+    .json(ApiResponse.success(subscriptions, "Subscriptions fetched"));
 });
+
 
 // Create / Change / Upgrade / Downgrade Subscription
 export const changePlan = async (req, res) => {

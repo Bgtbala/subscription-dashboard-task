@@ -39,14 +39,14 @@ export const getMySubscription = async () => {
 // ------------------------------------------
 // GET ALL SUBSCRIPTIONS (ADMIN)
 // ------------------------------------------
-export const getAllSubscriptions = async () => {
-  try {
-    const response = await api.get("/admin/subscriptions");
-    return response.data?.data;
-  } catch (err) {
-    throw err;
-  }
+
+export const getAllSubscriptions = async (email = "") => {
+  const response = await api.get("/admin/subscriptions", {
+    params: email ? { email } : {},
+  });
+  return response.data?.data || [];
 };
+
 
 export const changeUserPlan = async (planId) => {
   console.log("🚀 ~ changeUserPlan ~ planId:", planId)
