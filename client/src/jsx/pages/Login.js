@@ -77,22 +77,30 @@ function Login() {
   return (
     <div className="authincation d-flex flex-column flex-lg-row flex-column-fluid">
 
-{/* LEFT SECTION - Centered and Styled */}
+{/* LEFT SECTION - Centered and Styled (Text kept) */}
 <div className="login-aside text-center d-flex flex-column flex-row-auto justify-content-center align-items-center p-5">
-  <div className="d-flex flex-column align-items-center">
-    {/* Optional: Add a Logo/Icon here for visual interest */}
-    <span className="display-4 mb-4 text-white">
-      {role === "admin" ? "⚙️" : "👋"}
-    </span> 
+  {/* The d-flex, justify-content-center, and align-items-center classes ensure the content is centered both horizontally and vertically */}
+  <div className="d-flex flex-column align-items-center text-white">
     
-    <h3 className="mb-3 text-white fw-bold display-6">
-      {role === "admin" ? "Admin Control Panel" : "Welcome Back!"}
-    </h3>
-    <p className="text-white-50 fs-5 px-3">
-      {role === "admin"
-        ? "Access the system configuration and management tools securely."
-        : "Sign in to manage your account and pick up where you left off."}
-    </p>
+    {/* Optional: Add a subtle visual accent (like a small icon or separator) */}
+    <span className="mb-4 display-4 text-white-50">
+        {role === "admin" ? "🛡️" : "✨"}
+    </span>
+
+    <div className="mb-2"> {/* Keeping the original structure's flow */}
+      <h3 className="mb-2 fw-bold display-6">
+        {/* Original H3 text kept */}
+        {role === "admin" ? "Admin Login" : "Welcome Back!"}
+      </h3>
+      <p className="text-white-75 fs-5 px-3">
+        {/* Original P text kept */}
+        {role === "admin"
+          ? "Access the admin control panel securely."
+          : "Sign in to manage your account effortlessly."}
+      </p>
+    </div>
+
+    {/* You can add more marketing text or a decorative element here */}
   </div>
 </div>
 
