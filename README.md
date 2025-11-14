@@ -186,3 +186,31 @@ Full Stack Developer
 🌍 Bengaluru, India
 🔗 GitHub: https://github.com/Bgtbala
 🔗 LinkedIn: https://www.linkedin.com/in/balagangatharan17/
+
+
+<h2>📸 Screenshots</h2>
+
+<h3>User – Login</h3>
+<p align="center">
+  <img src="./screenshots/user-login.png" alt="User Login" width="700">
+</p>
+
+<h3>User – All Plans</h3>
+<p align="center">
+  <img src="./screenshots/user-all-plans.png" alt="User All Plans" width="700">
+</p>
+
+<h3>User – My Plan</h3>
+<p align="center">
+  <img src="./screenshots/user-my-plan.png" alt="User My Plan" width="700">
+</p>
+
+<h3>Admin – Login</h3>
+<p align="center">
+  <img src="./screenshots/admin-login.png" alt="Admin Login" width="700">
+</p>
+
+<h3>Admin – All Subscriptions</h3>
+<p align="center">
+  <img src="./screenshots/admin-all-subscriptions.png" alt="Admin All Subscriptions" width="700">
+</p>
