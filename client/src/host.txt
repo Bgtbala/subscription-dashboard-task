@@ -1,0 +1,74 @@
+import { lazy, Suspense, useEffect } from "react";
+/// Components
+import Index from "./jsx/index";
+import { connect, useDispatch } from "react-redux";
+import {
+  Navigate,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
+/// Style
+import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
+import "./css/style.css";
+import HostIndexMain from "./jsx/pages/host/HostIndex";
+import HostIndex from "./jsx/pages/host";
+import HostLogin from "./jsx/pages/host/login";
+import HostRegister from "./jsx/pages/host/register";
+import Dashboard from "./jsx/pages/host/dashboard/dashboard";
+import Announcements from "./jsx/pages/host/announcement/announcements";
+import ReportsMain from "./jsx/pages/host/reports/ReportsMain";
+import HostInvoices from "./jsx/pages/host/invoices/Invoices";
+import Contactus from "./jsx/pages/host/contactus/Contactus";
+import UserProfile from "./jsx/pages/host/userProfile/userProfile";
+
+import HostDetails from "./pages/hosts/HostDetails";
+// import CreateHost from "../pages/hosts/CreateHosts";
+import CreateDome from "./pages/dome/CreateDome";
+import HostDomes from "./pages/dome/HostDomes";
+import DomeDetails from "./pages/dome/DomeDetails";
+import EditDome from "./pages/dome/EditDome";
+import EditHost from "./pages/hosts/EditHosts";
+
+function withRouter(Component) {
+  function ComponentWithRouterProp(props) {
+    let location = useLocation();
+    let navigate = useNavigate();
+    let params = useParams();
+
+    return <Component {...props} router={{ location, navigate, params }} />;
+  }
+
+  return ComponentWithRouterProp;
+}
+
+function App() {
+  return (
+    <Routes>
+      <Route path="/" element={<HostIndex />} />
+      <Route path="/host">
+        <Route path="" element={<HostIndex />} />
+        <Route path="login" element={<HostLogin />} />
+        <Route path="register" element={<HostRegister />} />
+        <Route element={<HostIndexMain />}>
+          <Route path="dashboard" element={<Dashboard />} />
+          <Route path="announcements" element={<Announcements />} />
+          <Route path="reports" element={<ReportsMain />} />
+          <Route path="invoices" element={<HostInvoices />} />
+          <Route path="contact" element={<Contactus />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path=":id" element={<HostDetails />} />
+          <Route path=":id/edit" element={<EditHost />} />
+          <Route path=":id/dome" element={<HostDomes />} />
+          <Route path=":id/dome/create" element={<CreateDome />} />
+          <Route path=":id/dome/:domeid" element={<DomeDetails />} />
+          <Route path=":id/dome/:domeid/edit" element={<EditDome />} />
+        </Route>
+      </Route>
+    </Routes>
+  );
+}
+
+export default App;
